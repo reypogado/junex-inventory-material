@@ -13,13 +13,7 @@ function Categories(props) {
 
 
     const {fetchCategories, categories, addCategories, updateCategories, categoryLoading } = useContext(CategoryContext)
-    useEffect(() => {
-        loadFetch()
-    }, [])
 
-    async function loadFetch(){
-        await fetchCategories()
-    }
 
     return (
         <MaterialTable
