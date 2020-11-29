@@ -1,9 +1,9 @@
 import MaterialTable from 'material-table'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CategoryContext } from '../../context/CategoryContext'
 import { tableIcons, tablePageSizeoptions } from '../../utils/utils'
 
-function Categories() {
+function Categories(props) {
 
     const [columns, setColumns] = useState([
         { title: 'ID', field: 'id', editable: 'never' },
@@ -12,13 +12,17 @@ function Categories() {
     ])
 
 
-    const { categories, addCategories, updateCategories, categoryLoading } = useContext(CategoryContext)
+    const {fetchCategories, categories, addCategories, updateCategories, categoryLoading } = useContext(CategoryContext)
+    useEffect(() => {
+        loadFetch()
+    }, [])
+
+    async function loadFetch(){
+        await fetchCategories()
+    }
 
     return (
         <MaterialTable
-            style={
-                {}
-            }
             isLoading={categoryLoading}
             icons={tableIcons}
             options={tablePageSizeoptions}
@@ -37,8 +41,8 @@ function Categories() {
                         await updateCategories(oldData, newData)
                         resolve();
                     }),
-                onRowDelete: (oldData)=>
-                    new Promise(async(resolve, reject) =>{
+                onRowDelete: (oldData) =>
+                    new Promise(async (resolve, reject) => {
                         reject()
                     })
             }}

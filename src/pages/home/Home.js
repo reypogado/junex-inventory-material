@@ -15,7 +15,6 @@ function Home(props) {
 
     const {fetchCategories } = useContext(CategoryContext)
     useEffect(() => {
-        fetchCategories()
     }, [])
 
     return (

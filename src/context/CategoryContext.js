@@ -7,12 +7,16 @@ export const CategoryContext = createContext();
 
 function CategoryContextProvider(props) {
     const [categories, setCategory] = useState([])
-    const [categoryLoading, setCategoryLoading] = useState(false)
+    const [categoryLoading, setCategoryLoading] = useState(true)
 
 
     const fetchCategories = async () => {
+        setCategoryLoading(true)
         let data = await FetchCategories();
-        setCategory(data)
+        setCategoryLoading(false)
+        if (data != null) {
+            setCategory(data)
+        }
     }
 
     const addCategories = async (newData) => {
@@ -48,8 +52,8 @@ function CategoryContextProvider(props) {
 
     return (
         <CategoryContext.Provider value={{
-            categories, fetchCategories, addCategories, 
-            categoryLoading,updateCategories
+            categories, fetchCategories, addCategories,
+            categoryLoading, updateCategories
         }}>
             {props.children}
         </CategoryContext.Provider>
