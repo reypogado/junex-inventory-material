@@ -1,38 +1,38 @@
 import MaterialTable from 'material-table'
 import React, { useContext, useEffect, useState } from 'react'
-import { CategoryContext } from '../../context/CategoryContext'
+import { SizeContext } from '../../context/SizeContext'
 import { tableIcons, tablePageSizeoptions } from '../../utils/utils'
 
-function Categories(props) {
+function Sizes(props) {
 
     const [columns, setColumns] = useState([
         { title: 'ID', field: 'id', editable: 'never' },
-        { title: 'Category Name', field: 'name' },
+        { title: 'Size Name', field: 'name' },
         { title: 'Date Created', field: 'created_at', editable: 'never' },
     ])
 
 
-    const { categories, addCategories, updateCategories, categoryLoading } = useContext(CategoryContext)
+    const {fetchSizes, sizes, addSizes, updateSizes, sizeLoading } = useContext(SizeContext)
 
 
     return (
         <MaterialTable
-            isLoading={categoryLoading}
+            isLoading={sizeLoading}
             icons={tableIcons}
             options={tablePageSizeoptions}
-            title="Product Categories"
+            title="Product Sizes"
             columns={columns}
-            data={categories}
+            data={sizes}
             editable={{
                 onRowAdd: newData =>
                     new Promise(async (resolve, reject) => {
                         console.log(newData)
-                        await addCategories(newData)
+                        await addSizes(newData)
                         resolve();
                     }),
                 onRowUpdate: (newData, oldData) =>
                     new Promise(async (resolve, reject) => {
-                        await updateCategories(oldData, newData)
+                        await updateSizes(oldData, newData)
                         resolve();
                     }),
                 onRowDelete: (oldData) =>
@@ -44,4 +44,4 @@ function Categories(props) {
     )
 }
 
-export default Categories
+export default Sizes

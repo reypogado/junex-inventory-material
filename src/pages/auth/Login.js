@@ -8,11 +8,16 @@ import { AuthContext } from '../../context/AuthContext';
 function Login() {
     var history = useHistory();
 
-    const [code, setCode] = useState("");
-    const [loading, setLoading] = React.useState(false);
-    const [loginStat, setLoginStat] = React.useState(false);
+    const [name, setName] = useState("")
+    const [password, setPassword] = useState("")
 
-    const {loginUser, setUserData } = useContext(AuthContext)
+    const [code, setCode] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [loginStat, setLoginStat] = useState(false);
+
+    // const {loginUser, setUserData } = useContext(AuthContext)
+
+    const { loginUser, user, setUserData } = useContext(AuthContext)
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -22,7 +27,7 @@ function Login() {
         setLoginStat(!stat)
         setLoading(false)
         if (stat) {
-            history.replace('/home')
+            history.push('/home')
         }
     }
 
@@ -31,60 +36,65 @@ function Login() {
 
         var prevData = localStorage.getItem('userData');
 
-        if (prevData){
+        if (prevData) {
             setUserData(prevData)
             history.replace('/home')
-        } 
+        }
     }, [code])
 
     const classes = useStyles();
-    return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Typography component="h1" variant="h5">
-                    Enter Code
+
+    if (!localStorage.getItem('userData'))
+        return (
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Typography component="h1" variant="h5">
+                        Enter Code
                  </Typography>
-                <form className={classes.form} onSubmit={handleSubmit}>
-                    <TextField
-                        error={loginStat}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        type="password"
-                        name="code"
-                        label="Code"
-                        id={loginStat ? "outlined-error-helper-text" : ""}
-                        onChange={(val) => setCode(val.target.value)}
-                        helperText={loginStat ? "Login Failed" : ""}
-                        value={code}
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Submit
+                    <form className={classes.form} onSubmit={handleSubmit}>
+                        <TextField
+                            error={loginStat}
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            type="password"
+                            name="code"
+                            label="Code"
+                            id={loginStat ? "outlined-error-helper-text" : ""}
+                            onChange={(val) => setCode(val.target.value)}
+                            helperText={loginStat ? "Login Failed" : ""}
+                            value={code}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Submit
                     </Button>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                    >
-                        Register
+                        <Button 
+                            onClick={()=>{history.push('/register')}}
+                            fullWidth
+                            variant="contained"
+                        >
+                            Register
                     </Button>
-                </form>
-            </div>
-            {/* <Box mt={8}> */}
-            {/* <Copyright /> */}
-            {/* </Box> */}
-            <Backdrop className={classes.backdrop} open={loading}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
-        </Container>
-    )
+                    </form>
+                </div>
+                {/* <Box mt={8}> */}
+                {/* <Copyright /> */}
+                {/* </Box> */}
+                <Backdrop className={classes.backdrop} open={loading}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </Container>
+        )
+
+    return <div/>
 }
 
 const useStyles = makeStyles((theme) => ({

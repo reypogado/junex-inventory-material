@@ -25,6 +25,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import BubbleChartIcon from '@material-ui/icons/BubbleChart';
 
 import { Link, useHistory } from 'react-router-dom';
 
@@ -47,7 +48,7 @@ function MainDrawer(props) {
         setMobileOpen(!mobileOpen);
     };
 
-    const logOut = ()=>{
+    const logOut = () => {
         localStorage.removeItem('userData')
         history.replace('/')
     }
@@ -57,19 +58,20 @@ function MainDrawer(props) {
         var path = props.pathName.split("/").pop()
         if (path === '') setSelectedTab(0)
         if (path === 'Categories') setSelectedTab(1)
-        if (path === 'Products') setSelectedTab(2)
-        if (path === 'Entries') setSelectedTab(3)
-        if (path === 'Reports') setSelectedTab(4)
+        if (path === 'Sizes') setSelectedTab(2)
+        if (path === 'Products') setSelectedTab(3)
+        if (path === 'Entries') setSelectedTab(4)
+        if (path === 'Reports') setSelectedTab(5)
 
     }, []);
 
-    const drawerIcons = [<DashboardIcon />, <ListAltIcon />, <AssignmentIcon />, <CreateIcon />, <AssessmentIcon />]
+    const drawerIcons = [<DashboardIcon />, <ListAltIcon />, <BubbleChartIcon />, <AssignmentIcon />, <CreateIcon />, <AssessmentIcon />]
     const drawer = (
         <div>
             <div className={classes.toolbar} />
             {/* <Divider /> */}
             <List>
-                {['Dashboard', 'Categories', 'Products', 'Entries', 'Reports'].map((text, index) => (
+                {['Dashboard', 'Categories', 'Sizes', 'Products', 'Entries', 'Reports'].map((text, index) => (
                     <ListItem button key={text} component={Link} to={text == 'Dashboard' ? `/home` : `/home/${text}`} onClick={() => setSelectedTab(index)} selected={selectedTab == index}>
                         <ListItemIcon>{drawerIcons[index]}</ListItemIcon>
                         <ListItemText primary={text} />
@@ -103,7 +105,7 @@ function MainDrawer(props) {
                     <Typography variant="h6" noWrap>
                         Responsive drawer
           </Typography>
-                    <Button variant="contained" onClick={() =>  logOut()} endIcon={<ExitToAppIcon />}>
+                    <Button variant="contained" onClick={() => logOut()} endIcon={<ExitToAppIcon />}>
                         Logout
                     </Button>
                 </Toolbar>
@@ -142,19 +144,6 @@ function MainDrawer(props) {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 {props.children}
-                {/* <Switch>
-                    <Route path="/home" exact component={Partners} />
-                    <Route path="/home/Bills" component={Bills} />
-                    <Route path="/home/Partners" component={Partners} />
-                    <Route path="/home/Palengke" component={Palengke} />
-                    <Route path="/home/Grocery" component={Grocery} />
-                    <Route path="/home/Errands" component={Errands} />
-                    <Route path="/home/Partner Stores" component={Partner_Stores} />
-                    <Route path="/home/Products" component={ProductsTab} />
-
-                    <Route path="/home/GroceryItems" component={GroceryItems} />
-                    <Route path="/home/PalengkeItems" component={PalengkeItems} />
-                </Switch> */}
             </main>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { FetchCategories, AddCategory, UpdateCategory } from '../api/products';
+import { FetchCategories, AddCategory, UpdateCategory } from '../api/categories';
 
 export const CategoryContext = createContext();
 
