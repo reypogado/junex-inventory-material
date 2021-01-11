@@ -41,6 +41,7 @@ export function headers() {
     console.log(token)
     let axiosConfig = {
         'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
         'token': token,
     };
     return axiosConfig;

@@ -1,6 +1,7 @@
 import React from 'react'
 import AuthContextProvider from './AuthContext'
 import CategoryContextProvider from './CategoryContext'
+import EntryContextProvider from './Entries'
 import ProductContextProvider from './ProductsContext'
 import SizeContextProvider from './SizeContext'
 
@@ -10,7 +11,9 @@ function Contexts(props) {
             <CategoryContextProvider>
                 <SizeContextProvider>
                     <ProductContextProvider>
-                        {props.children}
+                        <EntryContextProvider>
+                            {props.children}
+                        </EntryContextProvider>
                     </ProductContextProvider>
                 </SizeContextProvider>
             </CategoryContextProvider>

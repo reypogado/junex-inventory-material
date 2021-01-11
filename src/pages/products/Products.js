@@ -17,28 +17,32 @@ function Products(props) {
     const sizeLookup = {}
     const categoryLookup = {}
 
-
+    const [columns, setColumns] = useState([]);
 
     useEffect(() => {
         sizes.map(size => {
             sizeLookup[size.id] = size.name
         })
+        console.log(sizeLookup);
 
         categories.map(category => {
             categoryLookup[category.id] = category.name
         })
+        console.log(categoryLookup)
 
-    }, [])
+        setColumns([
+            { title: "ID", field: "id", editable: "never" },
+            { title: "Product Name", field: "name" },
+            { title: "Size", field: "size", lookup: sizeLookup },
+            { title: "Category", field: "category", lookup: categoryLookup },
+            { title: "Price", field: "price" },
+            { title: "Date Created", field: "created_at", editable: "never" },
+          ]);
+
+    }, [products])
 
 
-    const [columns, setColumns] = useState([
-        { title: 'ID', field: 'id', editable: 'never' },
-        { title: 'Product Name', field: 'name' },
-        { title: 'Size', field: 'size', lookup: sizeLookup},
-        { title: 'Category', field: 'category',lookup: categoryLookup },
-        { title: 'Price', field: 'price' },
-        { title: 'Date Created', field: 'created_at', editable: 'never' },
-    ])
+
 
 
 
